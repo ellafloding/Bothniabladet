@@ -1,0 +1,30 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model posts {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+}
+
+model users {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  v             Int      @map("__v")
+  createdAt     DateTime @db.Date
+  email         String   @unique(map: "email_1")
+  firstName     String
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  friends       Json?
+  impressions   Int
+  lastName      String
+  location      String
+  occupation    String
+  password      String
+  picturePath   String
+  updatedAt     DateTime @db.Date
+  viewedProfile Int
+}
